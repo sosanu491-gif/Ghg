@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovation Hub - Future Technology Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Reset & Global Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --bg-color: #020306;
+            --card-bg: rgba(6, 10, 20, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-blur: blur(20px);
+            
+            /* Enhanced Neon Theme Accent Colors */
+            --color-medicine: #00f2fe;
+            --color-ai: #bf55ec;
+            --color-defence: #ff4757;
+            --color-agriculture: #2ed573;
+            --color-solar: #ffa502;
+            --color-submit: #3ae374;
+            --color-contact: #17c0eb;
+            
+            --text-primary: #ffffff;
+            --text-secondary: #a3b3c9;
+            --neon-glow: 0 0 20px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(10, 25, 50, 0.3) 0%, transparent 80%),
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%), 
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 4px, 45px 45px, 45px 45px;
+        }
+
+        /* Ambient Dynamic VFX Blobs */
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(150px);
+            z-index: -1;
+            opacity: 0.2;
+            pointer-events: none;
+            animation: drift 20s infinite alternate ease-in-out;
+        }
+
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--color-medicine);
+            top: 10%;
+            left: -5%;
+        }
+
+        .blob-2 {
+            width: 700px;
+            height: 700px;
+            background: var(--color-ai);
+            bottom: 5%;
+            right: -5%;
+            animation-delay: -5s;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(100px, -80px) scale(1.2); }
+            100% { transform: translate(-50px, 120px) scale(0.9); }
+        }
+
+        .container {
+            max-width: 1350px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Header Elements */
+        header {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        header .hud-badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            color: var(--color-medicine);
+            text-transform: uppercase;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: rgba(0, 242, 254, 0.05);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #ffffff 20%, #4facfe 60%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 30px rgba(0, 242, 254, 0.2);
+            text-transform: uppercase;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            letter-spacing: 1px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Dynamic Routing */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .page-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Sci-Fi Cockpit Dashboard Grid */
+        .launcher-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            max-width: 1250px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .app-tile {
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 3rem 1.5rem 2rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+            backdrop-filter: var(--card-blur);
+            -webkit-backdrop-filter: var(--card-blur);
+        }
+
+        /* Glowing Cyber Corners on Hover */
+        .app-tile::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 1;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            filter: grayscale(100%) contrast(1.2);
+        }
+
+        /* Mapping High-Tech Unsplash Visuals */
+        .tile-medicine::before { background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500&auto=format&fit=crop&q=80'); }
+        .tile-ai::before { background-image: url('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=500&auto=format&fit=crop&q=80'); }
+        .tile-defence::before { background-image: url('https://images.unsplash.com/photo-1508962914676-134849a727f0?w=500&auto=format&fit=crop&q=80'); }
+        .tile-agriculture::before { background-image: url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=500&auto=format&fit=crop&q=80'); }
+        .tile-solar::before { background-image: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500&auto=format&fit=crop&q=80'); }
+        .tile-submit::before { background-image: url('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=500&auto=format&fit=crop&q=80'); }
+        .tile-contact::before { background-image: url('https://images.unsplash.com/photo-1596524430615-b46475ddff6e?w=500&auto=format&fit=crop&q=80'); }
+
+        .app-tile:hover::before {
+            opacity: 0.35;
+            transform: scale(1.15);
+            filter: grayscale(0%);
+        }
+
+        .tile-hud-status {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 1.5rem;
+            z-index: 2;
+            transition: color 0.3s ease;
+        }
+
+        .app-tile svg {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            z-index: 2;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .app-tile h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            z-index: 2;
+            margin-bottom: 1rem;
+        }
+
+        .tile-arrow {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+            z-index: 2;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        /* Hover Glow Configurations */
+        .app-tile:hover {
+            transform: translateY(-10px);
+            background: rgba(12, 20, 38, 0.85);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .app-tile:hover .tile-arrow {
+            transform: translateX(5px);
+        }
+
+        .tile-medicine:hover { border-color: var(--color-medicine); box-shadow: 0 0 30px rgba(0, 242, 254, 0.25); }
+        .tile-medicine:hover .tile-hud-status { color: var(--color-medicine); }
+        .tile-medicine:hover .tile-arrow { color: var(--color-medicine); }
+
+        .tile-ai:hover { border-color: var(--color-ai); box-shadow: 0 0 30px rgba(191, 85, 236, 0.25); }
+        .tile-ai:hover .tile-hud-status { color: var(--color-ai); }
+        .tile-ai:hover .tile-arrow { color: var(--color-ai); }
+
+        .tile-defence:hover { border-color: var(--color-defence); box-shadow: 0 0 30px rgba(255, 71, 87, 0.25); }
+        .tile-defence:hover .tile-hud-status { color: var(--color-defence); }
+        .tile-defence:hover .tile-arrow { color: var(--color-defence); }
+
+        .tile-agriculture:hover { border-color: var(--color-agriculture); box-shadow: 0 0 30px rgba(46, 213, 115, 0.25); }
+        .tile-agriculture:hover .tile-hud-status { color: var(--color-agriculture); }
+        .tile-agriculture:hover .tile-arrow { color: var(--color-agriculture); }
+
+        .tile-solar:hover { border-color: var(--color-solar); box-shadow: 0 0 30px rgba(255, 165, 2, 0.25); }
+        .tile-solar:hover .tile-hud-status { color: var(--color-solar); }
+        .tile-solar:hover .tile-arrow { color: var(--color-solar); }
+
+        .tile-submit:hover { border-color: var(--color-submit); box-shadow: 0 0 30px rgba(58, 227, 116, 0.25); }
+        .tile-submit:hover .tile-hud-status { color: var(--color-submit); }
+        .tile-submit:hover .tile-arrow { color: var(--color-submit); }
+
+        .tile-contact:hover { border-color: var(--color-contact); box-shadow: 0 0 30px rgba(23, 192, 235, 0.25); }
+        .tile-contact:hover .tile-hud-status { color: var(--color-contact); }
+        .tile-contact:hover .tile-arrow { color: var(--color-contact); }
+
+        /* Dynamic Category Layout Headers */
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 2rem;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .category-title svg {
+            width: 60px;
+            height: 60px;
+        }
+
+        .category-title h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .back-btn {
+            font-family: 'Orbitron', sans-serif;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            padding: 0.9rem 1.8rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            backdrop-filter: var(--card-blur);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(-5px);
+            border-color: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Ultra-Tech Modular Idea Cards */
+        .ideas-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4.5rem;
+        }
+
+        .idea-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 3.5rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .idea-card::after {
+            content: "";
+            position: absolute;
+            top: 0; right: 0;
+            width: 100px; height: 100px;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .idea-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .idea-card-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 3.5rem;
+            align-items: start;
+        }
+
+        .idea-text-panel h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            display: inline-block;
+            letter-spacing: 1px;
+            border-bottom: 3px solid transparent;
+            padding-bottom: 0.6rem;
+            text-transform: uppercase;
+        }
+
+        /* Dynamic Border Highlight colors based on current Page Theme */
+        .theme-medicine .idea-text-panel h3 { border-color: var(--color-medicine); text-shadow: 0 0 15px rgba(0, 242, 254, 0.3); }
+        .theme-ai .idea-text-panel h3 { border-color: var(--color-ai); text-shadow: 0 0 15px rgba(191, 85, 236, 0.3); }
+        .theme-defence .idea-text-panel h3 { border-color: var(--color-defence); text-shadow: 0 0 15px rgba(255, 71, 87, 0.3); }
+        .theme-agriculture .idea-text-panel h3 { border-color: var(--color-agriculture); text-shadow: 0 0 15px rgba(46, 213, 115, 0.3); }
+        .theme-solar .idea-text-panel h3 { border-color: var(--color-solar); text-shadow: 0 0 15px rgba(255, 165, 2, 0.3); }
+
+        .concept-block {
+            margin-bottom: 2.2rem;
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 1.8rem;
+            align-items: flex-start;
+        }
+
+        .concept-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            text-align: center;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .badge-problem { background: rgba(255, 71, 87, 0.1); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.3); }
+        .badge-solution { background: rgba(46, 213, 115, 0.1); color: #2ed573; border: 1px solid rgba(46, 213, 115, 0.3); }
+        .badge-innovation { background: rgba(0, 242, 254, 0.1); color: #00f2fe; border: 1px solid rgba(0, 242, 254, 0.3); }
+
+        .concept-text {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        /* Tech Image Panels */
+        .idea-img-panel {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .idea-visual {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            filter: brightness(0.9) contrast(1.1);
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+
+        .idea-card:hover .idea-visual {
+            transform: scale(1.03);
+            filter: brightness(1.05) contrast(1.15);
+        }
+
+        .mini-ui-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+        }
+
+        .mini-ui-badge {
+            font-family: 'Orbitron', sans-serif;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            padding: 0.6rem 0.4rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .idea-card:hover .mini-ui-badge {
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Transparent High-Tech Terminals */
+        .form-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 4rem;
+            max-width: 850px;
+            margin: 0 auto;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .form-card::before {
+            content: "SECURE CONNECTION: ESTABLISHED";
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            color: var(--color-submit);
+            position: absolute;
+            top: 15px; left: 20px;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-group label {
+            font-family: 'Orbitron', sans-serif;
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 1.3rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--color-submit);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 20px rgba(58, 227, 116, 0.15);
+        }
+
+        .submit-idea-btn {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, var(--color-submit) 0%, #2ecc71 100%);
+            border: none;
+            color: #000000;
+            font-weight: 800;
+            padding: 1.4rem 2.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 8px 25px rgba(58, 227, 116, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .submit-idea-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(58, 227, 116, 0.5);
+        }
+
+        /* Glassmorphic Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 900px;
+            margin: 3rem auto 0 auto;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 3.5rem 2.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            text-decoration: none;
+            color: var(--text-primary);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card.card-ig:hover {
+            border-color: #d6249f;
+            box-shadow: 0 15px 35px rgba(214, 36, 159, 0.3);
+            transform: translateY(-8px);
+        }
+
+        .contact-card.card-wa:hover {
+            border-color: #25D366;
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.3);
+            transform: translateY(-8px);
+        }
+
+        .contact-card svg {
+            width: 75px;
+            height: 75px;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover svg {
+            transform: scale(1.1);
+        }
+
+        .contact-card h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+
+        footer {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            padding: 4.5rem 0;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-top: auto;
+        }
+
+        /* Responsive UI Adjustments */
+        @media (max-width: 1100px) {
+            .idea-card-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            .idea-visual {
+                height: 320px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; }
+            header p { font-size: 1rem; }
+            .category-header { flex-direction: column-reverse; align-items: flex-start; gap: 2rem; }
+            .concept-block { grid-template-columns: 1fr; gap: 0.8rem; }
+            .badge { align-self: flex-start; }
+            .form-card { padding: 2.2rem; }
+            .idea-card { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <div class="container">
+
+        <!-- HOME PAGE LAUNCHER -->
+        <section id="home-page" class="page-section active">
+            <header>
+                <div class="hud-badge">Engineering Portal v4.0</div>
+                <h1>INNOVATION HUB</h1>
+                <p>Future ki advanced technology aur path-breaking engineering concepts ko asaan Hinglish language me samajhne ka sabse bada dynamic zariya</p>
+            </header>
+
+            <div class="launcher-grid">
+                <!-- Medicine -->
+                <div class="app-tile tile-medicine" onclick="navigateTo('medicine-page')">
+                    <span class="tile-hud-status">SYS_STATUS: ACTIVE</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-medicine)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        <path d="M12 8v4" stroke-linecap="round"/>
+                    </svg>
+                    <h3>Medicine Sector</h3>
+                    <span class="tile-arrow">System access →</span>
+                </div>
+
+                <!-- AI -->
+                <div class="app-tile tile-ai" onclick="navigateTo('ai-page')">
+                    <span class="tile-hud-status">AI_LINK: SECURED</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-ai)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 9h6v6H9z" />
+                    </svg>
+                    <h3>AI Systems</h3>
+                    <span class="tile-arrow">System access →</span>
+                </div>
+
+                <!-- Defence -->
+                <div class="app-tile tile-defence" onclick="navigateTo('defence-page')">
+                    <span class="tile-hud-status">DEF_PROTOCOL: SECURE</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-defence)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <h3>Defence Systems</h3>
+                    <span class="tile-arrow">System access →</span>
+                </div>
+
+                <!-- Agriculture -->
+                <div class="app-tile tile-agriculture" onclick="navigateTo('agriculture-page')">
+                    <span class="tile-hud-status">AGRI_NET: ONLINE</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-agriculture)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                    </svg>
+                    <h3>Agriculture Tech</h3>
+                    <span class="tile-arrow">System access →</span>
+                </div>
+
+                <!-- Solar -->
+                <div class="app-tile tile-solar" onclick="navigateTo('solar-page')">
+                    <span class="tile-hud-status">GRID_FLOW: 94%</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-solar)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <h3>Solar Energy</h3>
+                    <span class="tile-arrow">System access →</span>
+                </div>
+
+                <!-- Submit Idea -->
+                <div class="app-tile tile-submit" onclick="navigateTo('submit-page')">
+                    <span class="tile-hud-status">SUB_PORTAL: OPEN</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-submit)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    <h3>Idea Bhejein</h3>
+                    <span class="tile-arrow">Open Terminal →</span>
+                </div>
+
+                <!-- Contact -->
+                <div class="app-tile tile-contact" onclick="navigateTo('contact-page')">
+                    <span class="tile-hud-status">COMMS: ESTABLISHED</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-contact)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    <h3>Contact Us</h3>
+                    <span class="tile-arrow">Get in Touch →</span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- MEDICINE SECTION -->
+        <section id="medicine-page" class="page-section theme-medicine">
+            <div class="category-header">
+                <div class="category-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-medicine)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <h2>Medicine Future Innovations</h2>
+                </div>
+                <button class="back-btn" onclick="navigateTo('home-page')">← Dashboard par wapas jayein</button>
+            </div>
+
+            <div class="ideas-container">
+                <!-- Idea 1 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>1. AI Disease Detection System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Oncology (cancer diagnostics) aur critical cardiovascular blockage patterns ko early stages me traditional diagnostics se trace karna extremely difficult hota hai. Jab tak manual medical screening patterns aur physical tests report banate hain, tab tak patient aksar Stage-3 ya 4 par pahunch jata hai, jahan mortality rate high aur options limit ho jate hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum advanced convolutional neural networks (CNNs) aur computer vision models design karte hain jo millions of MRI, CT scans aur digital X-ray metrics ko fraction of a second me study karte hain. Ye computational models human error aur fatigue limits se aage badhkar microscopic level par cell anomaly aur early vascular narrowing patterns detect karte hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Sub-cutaneous, biocompatible graphene biosensors jo active circulation ke contact me rehte hain. Ye sensors patient ke bloodstream me continuously circulating tumor cells (CTCs) aur inflammatory cytokines load measure karte hain aur directly local healthcare database aur emergency servers ko active reports forward karte hain.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop&q=80" alt="AI Medicine Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Micro-Scan</div>
+                                <div class="mini-ui-badge">Neural Net</div>
+                                <div class="mini-ui-badge">BioSensors</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 2 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>2. Smart Medicine Delivery System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Chronic treatment procedures (jaise chemotherapy, diabetes control, psychiatric maintenance) ke dauran patients aksar dynamic medication timing miss karte hain ya inaccurate concentrations le lete hain. Over-dosage toxicity aur severe under-dosage resistance se har saal globally millions of preventable casualties register hoti hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">IoT-architectured automated smart medical dispenser box design karna jo micro-fluidic channels ke through correct dosages compile aur release karta hai. Ye systems patient ke digital telemetry status se direct coordinated rehte hain aur dynamic real-time doctor modifications ke sath automated adjust ho jate hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Targeted nanotechnology based dynamic smart capsule systems jo stomach acid levels (pH variations) aur digestive biomarkers ke continuous biological response parameters match karte hain, aur medication seedhe pinpoint organic positions par direct dump karte hain jisse secondary internal organs side-effects se clean rehte hain.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&auto=format&fit=crop&q=80" alt="Smart Delivery Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">IoT Dispenser</div>
+                                <div class="mini-ui-badge">pH Bio-Shell</div>
+                                <div class="mini-ui-badge">Micro-Fluid</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 3 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>3. Robotic Surgery System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Complicated micro-surgeries (jaise optical neurosurgeries ya internal arterial repair) me slight human hands trembling (tremors), micro-scalpel misalignment aur extended operational stress fatigue clinical limitations build karte hain. Minor physical deviances se irreversible paralysis ya massive internal bleeding registers hoti hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum complex multi-axis haptic feedback interfaces aur mechanical robotic surgical arms design karte hain jo dynamic motion-damping algorithms par functional rehte hain. Ye systems physical tremors ko completely filter out kar dete hain aur surgical adjustments ko sub-millimeter tracking accuracy range par safe scaling dete hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">In-vivo bio-degradable autonomous nanobots networks jo intravascular path follow karte hain. External magnetic alignment aur acoustic guidance maps ke base par ye tiny robots delicate vascular regions ke andar micro-tears aur structural damage ko internally suture, close aur repair karte hain bina structural dissection ke.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&auto=format&fit=crop&q=80" alt="Robotic Surgery Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Haptic Link</div>
+                                <div class="mini-ui-badge">Nanobots</div>
+                                <div class="mini-ui-badge">Sub-Mili</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 4 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>4. Health Prediction AI</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Duniya ka modern health framework high-expenditure reactive care par structured hai—yaani critical condition register hone ke baad active diagnostics aur chemical treatments initiate hote hain. Tab tak system organs permanent load damage carry kar chuke hote hain aur long-term dependency initiate ho jati hai.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Ek predictive AI profiling system jo high-throughput DNA sequencing databases, physiological sleep patterns, cardiovascular stress, atmospheric index exposure, aur historical family medical anomalies ko scan karta hai, taaki life-threatening conditions ko active symptoms aane se saalon pehle simulate kiya ja sake.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Digital Twin architecture technology ka generation jahan patient ka biological replication server database par cloud setup kiya jata hai. Is personal simulation space me high-potency drugs ke molecular response models digitally test kiye ja sakte hain, bina actual patient trials ke.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop&q=80" alt="AI Prediction Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Digital Twin</div>
+                                <div class="mini-ui-badge">DNA Profiles</div>
+                                <div class="mini-ui-badge">Sim Model</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 5 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>5. Smart Ambulance System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">High-density urban zones ke vehicular traffic congestion grids me ambulances aksar block ho jati hain. Coordinated navigation platforms aur moving patient monitoring panels ke absence me dynamic emergency parameters waste hote hain aur crucial Golden Hour treatment timeline loose ho jati hai.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum high-grade V2X (Vehicle-to-Everything) communication panels and pre-emptive traffic control systems link karte hain jo dynamic routes and adaptive signals ko priority sequence me set karte hain, aur emergency vehicle flow ko delay-free clear passages generate karwate hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Cabin based ultra-low latency holographic telepresence hardware networks. Is spatial integration se remote surgical panels real-time me ambulance patient ke clinical parameter shifts analyze aur critical emergency manipulations paramedical team ko visually guide kar sakte hain.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=600&auto=format&fit=crop&q=80" alt="Smart Ambulance Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">V2X System</div>
+                                <div class="mini-ui-badge">Holo-Comms</div>
+                                <div class="mini-ui-badge">Telemetrics</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- AI SECTION -->
+        <section id="ai-page" class="page-section theme-ai">
+            <div class="category-header">
+                <div class="category-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-ai)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 9h6v6H9z" />
+                    </svg>
+                    <h2>AI Systems Future Concepts</h2>
+                </div>
+                <button class="back-btn" onclick="navigateTo('home-page')">← Dashboard par wapas jayein</button>
+            </div>
+
+            <div class="ideas-container">
+                <!-- Idea 1 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>1. AI Learning System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Standard rigid educational structures aur flat curriculum models sabhi dynamic cognitive abilities wale students ko ek hi rate par map karte hain. Is standardized linear speed ke chalte slow learners critical concepts fail kar dete hain jabki fast learners uninspired and unengaged background loops me drop ho jate hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum self-adaptive, cognitive optimization model training setups compile karte hain jo real-time feedback loops track karte hain. AI dynamic explanations change karta hai, learning pace calibrate karta hai, aur real-time cognitive tests modify karta hai taaki har single student optimized custom speed par mastery gain kar sake.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Eye-tracking spatial VR (Virtual Reality) integrations jo eye concentration indicators scan karte hain. Agar student complexity points par cognitive focus loss karta hai, toh framework mathematical equations ya spatial physics parameters ko dynamic interactive puzzles me instantly render kar deta hai.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80" alt="AI Education Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Cognitive AI</div>
+                                <div class="mini-ui-badge">VR Tracking</div>
+                                <div class="mini-ui-badge">Fast Adapt</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 2 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>2. AI Assistant Robot</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Global aging demography ke trend lines register karte hain ki dependent geriatric population (elders) ka ratio dynamic increase ho raha hai. Unke physiological support, clinical dynamic checks, aur routine spatial activities tracking ke liye human caretakers aur medical assistants ka severe global supply shortage hai.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum high-grade bipedal and multi-terrain mobile auxiliary robots construct karte hain jo dynamic visual SLAM (Simultaneous Localization and Mapping) frameworks utilize karte hain. Ye devices local indoor mapping, emergency vitals check, aur dynamic physical obstacle avoidance modules self-compute karte hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Micro-expression analysis algorithms aur high-fidelity acoustic speech markers recognition interfaces. AI vocal tremors aur facial configurations ke stress points determine karta hai, jisse dynamic conversations launch karke elders ke social isolation levels ko eliminate kiya ja sake.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&auto=format&fit=crop&q=80" alt="AI Assistant Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Visual SLAM</div>
+                                <div class="mini-ui-badge">Acoustics</div>
+                                <div class="mini-ui-badge">Eldercare</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 3 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>3. AI Coding System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Complex enterprise logic programs and microservices architecture build karte waqt software development phases me extensive bugs, syntax anomalies, aur logical leakages occur hote hain. In high-level system problems ko manually code repositories se analyze aur resolve karna extremely slow aur expensive processing ban jata hai.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Large language models specialized in programming logic streams (LLMs for Coding) jo developer ecosystem ke dynamic co-pilots run karte hain. Ye programming inputs, algorithm complexities determine karte hain, performance optimizations propose karte hain, aur documentation logs generate karte hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Autonomous live application healing software modules. Agar active runtime phase me logical operations crash register karte hain, toh system background debugging processes, self-writing patch generation, dynamic isolation testing perform karke platform compile aur rebuild kar deta hai.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&auto=format&fit=crop&q=80" alt="AI Code Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Self-Healing</div>
+                                <div class="mini-ui-badge">LLM Engines</div>
+                                <div class="mini-ui-badge">Auto Debug</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 4 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>4. AI Security System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Traditional structural firewalls rulesets and database matching structures par reliance rakhte hain. Is structural vulnerability ka benefit lekar high-grade modern hostile entities zero-day system exploit vectors aur highly dynamic polymorphic payload codes deploy karke assets breach aur destroy kar dete hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum high-grade continuous heuristic threat analysis panels deploy karte hain jo network packets aur system calls ko baseline parameters ke sath compare karte hain. Anomalies aur malicious actions trace hone par dynamic isolation blocks fractions of a microsecond me execute hote hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Active blockchain ledger security dynamic structures jo spatial honeynets compile karti hain. System dynamically virtual fake data nodes aur decoys spin karta hai jisse intruders useless simulation traps me loop out ho jate hain aur unki dynamic tracking complete ho sake.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&auto=format&fit=crop&q=80" alt="AI Security Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Threat Intel</div>
+                                <div class="mini-ui-badge">Honeynet</div>
+                                <div class="mini-ui-badge">Micro-Blocks</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 5 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>5. AI Translator System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Duniya ke baseline translation systems word-for-word string match maps use karte hain. Is computational limit ke karan dynamic regional dialects, semantic contexts, specific localized business sarcasm profiles, aur non-verbal tone parameters transform and drop ho jate hain, jisse communication errors multiply hote hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum complex neural semantic networks coordinate karte hain jo verbal pitches, facial musculature micro-gestures, aur native behavioral contexts cross-verify karte hain. Output target languages ke precise local idioms and cultural frameworks ke natural sound match ke sath render hota hai.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Skin-patch localized arrays jo electromagnetic sub-vocal muscle dynamics capture karte hain. Agar user complex verbal signals silent processing me internally think karta hai bina actual speech vocalization ke, toh AI high-accuracy translation audio play kar sakta hai.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop&q=80" alt="AI Translation Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Neural Semantic</div>
+                                <div class="mini-ui-badge">Subvocal</div>
+                                <div class="mini-ui-badge">Context Map</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- DEFENCE SECTION -->
+        <section id="defence-page" class="page-section theme-defence">
+            <div class="category-header">
+                <div class="category-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-defence)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <h2>Defence Future Technologies</h2>
+                </div>
+                <button class="back-btn" onclick="navigateTo('home-page')">← Dashboard par wapas jayein</button>
+            </div>
+
+            <div class="ideas-container">
+                <!-- Idea 1 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>1. AI Drone Defence System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Extremely low-cost, decentralized high-volume swarming micro-drones low-altitude flight paths follow karte hain jo baseline long-range military radar arrays and monitoring frameworks detect nahi kar pate. Ye configurations vital military deployment targets aur strategic bases ko dynamic payload drops se collapse kar sakti hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum high-frequency localized micro-radar array systems aur specialized thermal acoustic tracking grids build karte hain jo localized threat profiles isolate karte hain. Target identify hote hi autonomous counter-drone platforms launch hote hain jo localized radio frequency blockades aur launch networks coordinate karte hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Continuous directed energy modules ya high-power electromagnetic radiation (HEMP) generators jo tactical vehicle panels par attach ho sakein. Ye devices atmospheric high-voltage electromagnetic surges trigger karke incoming micro-swarms ke structural control chips instantly burn out kar dete hain.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=600&auto=format&fit=crop&q=80" alt="Drone Defence Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Micro-Radar</div>
+                                <div class="mini-ui-badge">HEMP Module</div>
+                                <div class="mini-ui-badge">RF Blockades</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 2 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>2. Smart Shield Technology</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Standard physical armor plates aur high-grade ballistic shields massive weight constraints create karte hain, jisse tactical infantry troopers ki overall field mobility, travel agility, aur long-term resource efficiency levels drop hote hain aur danger conditions increase hoti hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum non-Newtonian sheer-thickening liquid materials aur polymer matrix configurations design karte hain jo regular spatial configurations me soft, flexible, and ultra-light posture profiles display karte hain, par external high-velocity projectile impacts coordinate hone par instant absolute solid phase change initiate karte hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Electro-active carbon nanotube fibers integrate karna jo internal micro-processors ke electrical control signal coordinate hote hi structural stiffness parameters dynamically modify kar sakein, aur multi-angle ballistic kinetic impact energy ko dissipation arrays me convert kar sakein.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80" alt="Nano Armor Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Non-Newt</div>
+                                <div class="mini-ui-badge">Nano-Carbon</div>
+                                <div class="mini-ui-badge">Stiffness AI</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 3 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>3. Robot Soldier System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Hostile hostage rescue environments, active CBRN (Chemical, Biological, Radiological, Nuclear) contamination zones, ya complex hazardous terrain recon tasks me military infantry units direct launch karne se high casualties aur resource compromise scenarios generate hote hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum dynamic bipedal/quadrupedal military hardware systems engineering perform karte hain jo heavy thermal optics, multispectral sensing modules, aur robotic structural arms carry karte hain. Ye units remote command bunker se tactical low-latency visual-link controls utilize karti hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Decentralized squad coordination algorithms compile karna. Autonomous military bots real-time map variables exchange karte hain, spatial entry points determine karte hain, cover fire configurations decide karte hain, aur hostage location extract kar sakte hain bina direct telemetry delay ke.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&auto=format&fit=crop&q=80" alt="Tactical Bot Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Multi-Spectral</div>
+                                <div class="mini-ui-badge">Squad Decis</div>
+                                <div class="mini-ui-badge">Low-Latency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 4 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>4. Cyber Defence AI</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">State-sponsored elite bad actors aur ransomware groups global critical infrastructures, transport links, smart power grids aur defence connectivity systems ko shutdown karne ke liye dynamic logical scripts aur multi-angle backdoors use karte hain jahan human analysis levels fail ho jate hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum continuous threat classification AI nodes design karte hain jo incoming cyber requests, database structural drifts aur packet logs dynamically check karte hain. AI dynamic isolation blocks fraction of a microsecond me execute karta hai taaki local nodes safe zone me backup lock ho sakein.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Self-morphing memory structures technology jahan operational binary frameworks, code locations aur registry access codes real-time execution limits me continuous random update generate karte hain, jisse external attackers ko system penetration ka koi clear blueprint nahi mil pata.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&auto=format&fit=crop&q=80" alt="Cyber Defence Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Self-Morphing</div>
+                                <div class="mini-ui-badge">Payload Iso</div>
+                                <div class="mini-ui-badge">Cyber AI</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 5 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>5. Invisible Surveillance System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Standard tactical reconnaissance drones ya unmanned vehicles continuous rotor noise emit karte hain aur thermal infrared indices show karte hain. In signatures ke visual indicators se enemy surveillance setups aur long-range defense system unhe trace karke intercept kar dete hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum customized lightweight micro-UAVs engineered karte hain jo visual chameleon camo-panels integrate karte hain. Ye structural skins target surfaces ke direct values analyze karke dynamic color maps aur heat dissipation coefficients mimic karti hain taaki detection trace line zero rahe.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Natural organic composites based body engineering. Agar spatial tracking units system failure ya physical damages ke chalte crash trigger karti hain, toh inka physical structure dynamic natural elements ke contact me raw biodegradation phase initiate kar deta hai jisse system deployment traces block ho sakein.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=600&auto=format&fit=crop&q=80" alt="Invisible Drone Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Camo-Skins</div>
+                                <div class="mini-ui-badge">Heat Dissip</div>
+                                <div class="mini-ui-badge">Eco-Degrade</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- AGRICULTURE SECTION -->
+        <section id="agriculture-page" class="page-section theme-agriculture">
+            <div class="category-header">
+                <div class="category-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-agriculture)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                    </svg>
+                    <h2>Agriculture Modern Technology</h2>
+                </div>
+                <button class="back-btn" onclick="navigateTo('home-page')">← Dashboard par wapas jayein</button>
+            </div>
+
+            <div class="ideas-container">
+                <!-- Idea 1 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>1. Smart AI Farming System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Unpredictable weather patterns, soil nutrient exhaustion, incorrect crop cycle sequencing, aur groundwater depletion dynamic agriculture management ko block karte hain. In issues ke bad effects se millions of tons of food crops global level par destroy ho jate hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum computational multi-depth soil health networks aur high-precision satellite imaging parameters coordinate karte hain. AI weather prediction datasets evaluate karta hai, optimum sowing timeline identify karta hai, and precise customized nitrogen-phosphorus biological mix rates suggest karta hai.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Smart underground micro-nutrient grids design karna jo actual crop root configuration identify karte hain aur sub-surface level par directly target areas me nutrients release karte hain, jisse resource utilization efficiency 90% reach kar sake.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&auto=format&fit=crop&q=80" alt="Smart Farming Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Multi-Depth</div>
+                                <div class="mini-ui-badge">Nutrient Grid</div>
+                                <div class="mini-ui-badge">Agri Satellite</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 2 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>2. Drone Agriculture System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Large-scale cultivation lands me standard mechanical fertilizer or manual chemical spraying procedures extremely slow execute hote hain. Chemical waste patterns increase hone ke sath-sath local farmers toxic particles inhale karke physical respiratory disorders register karte hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum heavy-payload multirotor autonomous agricultural drones configure karte hain jo multispectral camera systems utilize karte hain. Drones vegetation stress indexes, moisture ratios aur active pest locations map karte hain aur dynamic pinpoint chemical applications output dete hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Indoor vertical micro-greenhouses platforms ke liye micro-pollinating drones design karna. Ye systems visual recognition algorithms, biological target matches aur soft physical micro-thrusters utilize karte hain flowers pollinate karne ke liye bina biological bees constraints ke.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1508962914676-134849a727f0?w=600&auto=format&fit=crop&q=80" alt="Agro Drone Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Multispectral</div>
+                                <div class="mini-ui-badge">Agro Drones</div>
+                                <div class="mini-ui-badge">Micro-Pollin</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 3 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>3. Water Saving Technology</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Flood irrigation structures use karne se absolute major percentages of fresh water resources surface evaporation aur soil deep runoff limits me waste ho jate hain. Soil top erosion profiles ke side-effects se essential dynamic minerals wash-out ho jate hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum closed drip networks design karte hain jo smart multi-level telemetry parameters manage karte hain. Soil moisture sensors actual hydration limits verify karke precise dynamic water flow control release karte hain jisse zero resource loss scenarios register hote hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Spatial atmospheric condensation panels construct karna jo air temperature profiles aur dynamic moisture indicators utilize karke ambient humidity se pure dynamic farming liquid formulate karte hain taaki absolute arid zones me independent farming stable reh sake.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?w=600&auto=format&fit=crop&q=80" alt="Water Saving Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Moisture Node</div>
+                                <div class="mini-ui-badge">Air-Condense</div>
+                                <div class="mini-ui-badge">Drip Control</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 4 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>4. Crop Disease Detection AI</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Fungal formations aur viral crop infections initial incubation levels me invisible rehte hain. Jab tak visual disease indicators leaves patterns par manifest ho pate hain, tab tak core infection lines 80% field elements damage kar chuki hoti hain jisse dynamic treatment limits fail ho jati hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum hyper-spectral camera models construct karte hain jo early-stage structural cell modifications, cellular water stress level, aur light absorption fluctuations monitor karte hain. User simple mobile frames capture karke real-time disease identification aur dynamic recovery steps analyze kar sakta hai.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Micro-sensor laser radars map setups jo ambient air currents analyze karte hain. Ye units air me float hote spores aur dynamic pathogenic biological structures study karti hain aur target leaves par drop hone se pehle hi alerts generate karti hain.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=600&auto=format&fit=crop&q=80" alt="Plant Health Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Hyperspectral</div>
+                                <div class="mini-ui-badge">Pathogen Radar</div>
+                                <div class="mini-ui-badge">Cell Stress</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 5 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>5. Smart Storage System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Harvested grains ko transport phases se pehle standard warehouses me storage limits me setup kiya jata hai. In places me poor thermo-regulation conditions, dynamic humidity spikes aur pest-rodent attacks ke chalte globally over 30% of actual food crops supply degrade aur decay register hoti hai.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum smart IoT-enabled silos construct karte hain jo carbon-dioxide concentrations sensor, heat meters, aur automated air ventilation grids configure karte hain. In panels ke coordination se inside warehouse metrics continuous parameters sequence me stable maintain hote hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Autonomous oxygen depletion silos structures design karna. Pests ya storage mold formation trace hote hi units inside atmosphere ko nitrogen displacement sequence par move kar deti hain jisse local pest respiration profiles collapse ho jate hain bina chemical usage ke.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1595246140625-573b715d11dc?w=600&auto=format&fit=crop&q=80" alt="Storage Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">IoT Silos</div>
+                                <div class="mini-ui-badge">N2 Control</div>
+                                <div class="mini-ui-badge">Mold Detect</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SOLAR SECTION -->
+        <section id="solar-page" class="page-section theme-solar">
+            <div class="category-header">
+                <div class="category-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-solar)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <h2>Solar Energy Future Systems</h2>
+                </div>
+                <button class="back-btn" onclick="navigateTo('home-page')">← Dashboard par wapas jayein</button>
+            </div>
+
+            <div class="ideas-container">
+                <!-- Idea 1 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>1. Solar Road System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Large megawatt scale grid-connected solar power projects build karne ke liye massive surface areas are required. Is expansion ke side-effects se local agricultural lands are acquired aur massive ecosystems balance disturb register hota hai.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum high-durability modular tempered glass integrated photovoltaic tiles construct karte hain jo standard road infrastructure, paths aur transport corridors ko active energy generators me transition out karte hain without additional area conversion limits.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Road surface layers ke down-sections me magnetic induction wireless charging systems deploy karna. Move hone wale dynamic EV (Electric Vehicles) system lanes par run karte waqt real-time base wireless charging coordinate kar sakte hain.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&auto=format&fit=crop&q=80" alt="Solar Roads Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">PV Tiles</div>
+                                <div class="mini-ui-badge">Inductive EV</div>
+                                <div class="mini-ui-badge">Glass Road</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 2 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>2. Smart Solar Roof System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Standard solar panels installation procedures structural weight issues generate karte hain, visual building architectures ko distort karte hain aur excessive high wind speed scenarios me structural damages trigger hone ka dynamic risk maintain rehta hai.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum integrated solar shingles technology manufacture karte hain jisse standard building tiles ke layers me photovoltaic properties integrated rehti hain. Ye units modular physical layouts merge karti hain jisse structure parameters safety dynamic maintain ho sake.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Highly transparent solar window glass panels panels architecture design karna jo active sunlight thermal indices block karte hain, internal building air cooling loading index optimization compile karte hain aur electric output drive complete karte hain.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=600&auto=format&fit=crop&q=80" alt="Solar Shingles Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Shingles</div>
+                                <div class="mini-ui-badge">Glass PV</div>
+                                <div class="mini-ui-badge">Aesthetic PV</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 3 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>3. Solar Drone Technology</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Tactical reconnaissance aur topological mapping UAV platforms major levels me limited battery energy values par rely karte hain. Is parameter block ke chalte drones flights continuous maintenance downtime aur physical landing sequences par stuck register hote hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum high-aspect-ratio flight designs coordinate karte hain jinke composite wings surface par flexible perovskite-silicon solar cells integrated layers rehte hain, jo active flight stages me continuous energy backfeeding sequence operate karte hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Stratospheric flight tracking panels launch karna jo high altitudes clouds level se upward stay karte hain aur infinite duration communications links setup karte hain as ultra-low cost orbital satellite replacements.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&auto=format&fit=crop&q=80" alt="Solar Drone Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Perovskite</div>
+                                <div class="mini-ui-badge">Stratospheric</div>
+                                <div class="mini-ui-badge">UAV Power</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 4 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>4. Energy Storage Grid System</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Solar generation values highly dynamic, variable aur atmospheric conditions reliant rehti hain. Rainy indices, cloudy patterns aur continuous night operations trigger hote hi total microgrids collapse hone ke massive critical instances registers hote hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum industrial solid-state energy conversion networks aur multi-megawatt sand storage platforms construct karte hain jo high heat preservation index apply karte hain, aur output phases me dynamic thermodynamic steam systems se continuous grids feeds load manage karte hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Blockchain micro-contracts based peer-to-peer decentralized energy marketplace coordinate karna, jahan smart home systems localized excess solar power dynamic rates par continuous target loops me neighborhood nodes ko automatically trade kar sakein.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&auto=format&fit=crop&q=80" alt="Grid Storage Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Sand-Storage</div>
+                                <div class="mini-ui-badge">Grid Trade</div>
+                                <div class="mini-ui-badge">Microgrid AI</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea 5 -->
+                <div class="idea-card">
+                    <div class="idea-card-grid">
+                        <div class="idea-text-panel">
+                            <h3>5. Portable Solar Kit</h3>
+                            <div class="concept-block">
+                                <span class="badge badge-problem">Problem</span>
+                                <p class="concept-text">Earthquakes, heavy flash floods ya other sudden natural disaster patterns dynamic physical infrastructure lines and electrical wire grids ko complete breakdown block kar dete hain, jisse emergency medical camp lines aur relief operations power loss se struggle karte hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-solution">Solution</span>
+                                <p class="concept-text">Hum deployable ultra-lightweight rollable solar blankets structures model karte hain, jo transport steps me roll configurations maintain karte hain aur rescue camps deployment steps me open layout trigger karke instantly continuous off-grid loads up-rate karte hain.</p>
+                            </div>
+                            <div class="concept-block">
+                                <span class="badge badge-innovation">Innovation</span>
+                                <p class="concept-text">Flexible thermoelectric generation strips apply karna jo structural solar panels layers ke down sections configure karte hain aur structural surface temperature levels aur surrounding cool ground templates thermal anomalies track karke micro-voltage add-up execute karte hain.</p>
+                            </div>
+                        </div>
+                        <div class="idea-img-panel">
+                            <img src="https://images.unsplash.com/photo-1548613053-220086c759a0?w=600&auto=format&fit=crop&q=80" alt="Portable Solar Visual" class="idea-visual">
+                            <div class="mini-ui-container">
+                                <div class="mini-ui-badge">Roll-PV</div>
+                                <div class="mini-ui-badge">Thermoelec</div>
+                                <div class="mini-ui-badge">Emergency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SUBMIT YOUR IDEA SECTION -->
+        <section id="submit-page" class="page-section">
+            <div class="category-header">
+                <div class="category-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-submit)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    <h2>Apna Idea Bhejein</h2>
+                </div>
+                <button class="back-btn" onclick="navigateTo('home-page')">← Dashboard par wapas jayein</button>
+            </div>
+
+            <div class="form-card">
+                <div class="form-group">
+                    <label>Idea Ka Title / Naam</label>
+                    <input type="text" id="idea-title" placeholder="Apne tech concept ka title enter karein...">
+                </div>
+                <div class="form-group">
+                    <label>Problem Statement (Detail me batayein)</label>
+                    <textarea id="idea-problem" rows="4" placeholder="Abhi chal rahi real-world problem ya challenge ko detail me likhein..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Proposed Solution & Future Innovation</label>
+                    <textarea id="idea-solution" rows="4" placeholder="Aapki technology is problem ko kaise solve karegi aur iska future kya hoga..."></textarea>
+                </div>
+                <button class="submit-idea-btn" onclick="sendEmail()">Submit Karein</button>
+            </div>
+        </section>
+
+
+        <!-- CONTACT US SECTION -->
+        <section id="contact-page" class="page-section">
+            <div class="category-header">
+                <div class="category-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-contact)" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    <h2>Contact Us</h2>
+                </div>
+                <button class="back-btn" onclick="navigateTo('home-page')">← Dashboard par wapas jayein</button>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/sanuinferno" target="_blank" class="contact-card card-ig">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#d6249f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    <h4>Instagram</h4>
+                    <p>@sanuinferno</p>
+                </a>
+
+                <!-- WhatsApp -->
+                <a href="https://wa.me/916299386787" target="_blank" class="contact-card card-wa">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                    </svg>
+                    <h4>WhatsApp</h4>
+                    <p>+91 62993 86787</p>
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Innovation Hub. All Rights Reserved. Designed for Tactical Engineering Explorations.</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Module -->
+    <script>
+        // SPA Navigation Routing
+        function navigateTo(sectionId) {
+            const currentActive = document.querySelector('.page-section.active');
+            if (currentActive) {
+                currentActive.style.opacity = '0';
+                currentActive.style.transform = 'translateY(25px)';
+                
+                setTimeout(() => {
+                    currentActive.classList.remove('active');
+                    
+                    const nextActive = document.getElementById(sectionId);
+                    nextActive.classList.add('active');
+                    
+                    adjustVFXBlobs(sectionId);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    
+                    setTimeout(() => {
+                        nextActive.style.opacity = '1';
+                        nextActive.style.transform = 'translateY(0)';
+                    }, 50);
+                }, 400);
+            }
+        }
+
+        // Dynamically adjust ambient background blobs depending on page context
+        function adjustVFXBlobs(sectionId) {
+            const blob1 = document.querySelector('.blob-1');
+            const blob2 = document.querySelector('.blob-2');
+            
+            if (sectionId === 'home-page') {
+                blob1.style.background = 'var(--color-medicine)';
+                blob2.style.background = 'var(--color-ai)';
+            } else if (sectionId === 'medicine-page') {
+                blob1.style.background = 'var(--color-medicine)';
+                blob2.style.background = '#0052d4';
+            } else if (sectionId === 'ai-page') {
+                blob1.style.background = 'var(--color-ai)';
+                blob2.style.background = '#6c5ce7';
+            } else if (sectionId === 'defence-page') {
+                blob1.style.background = 'var(--color-defence)';
+                blob2.style.background = '#eb4d4b';
+            } else if (sectionId === 'agriculture-page') {
+                blob1.style.background = 'var(--color-agriculture)';
+                blob2.style.background = 'var(--color-solar)';
+            } else if (sectionId === 'solar-page') {
+                blob1.style.background = 'var(--color-solar)';
+                blob2.style.background = 'var(--color-medicine)';
+            } else if (sectionId === 'submit-page') {
+                blob1.style.background = 'var(--color-submit)';
+                blob2.style.background = 'var(--color-ai)';
+            } else if (sectionId === 'contact-page') {
+                blob1.style.background = 'var(--color-contact)';
+                blob2.style.background = 'var(--color-solar)';
+            }
+        }
+
+        // Automated Mail Delivery Interface
+        function sendEmail() {
+            const title = document.getElementById('idea-title').value.trim();
+            const problem = document.getElementById('idea-problem').value.trim();
+            const solution = document.getElementById('idea-solution').value.trim();
+
+            if (!title || !problem || !solution) {
+                alert("Kripya sabhi fields ko fill karein apna idea submit karne se pehle.");
+                return;
+            }
+
+            const emailRecipient = "sosanu491@gmail.com";
+            const emailSubject = encodeURIComponent("Innovation Hub Submission: " + title);
+            
+            const emailBody = encodeURIComponent(
+                "--- INNOVATION HUB SUBMISSION ---\n\n" +
+                "Idea Title:\n" + title + "\n\n" +
+                "Problem Statement:\n" + problem + "\n\n" +
+                "Proposed Solution & Innovation:\n" + solution + "\n\n" +
+                "---------------------------------"
+            );
+
+            const mailtoUrl = `mailto:${emailRecipient}?subject=${emailSubject}&body=${emailBody}`;
+            window.location.href = mailtoUrl;
+        }
+    </script>
+</body>
+</html>
